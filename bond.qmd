@@ -78,10 +78,17 @@ bond.data |> ggplot(aes(x=BJB, y=US_Adj)) +
 
 It looks as though there is a nonlinear relationship between the variables; movies are more likely to earn more money if Bond says "Bond, James Bond" either 0 or 2 times.
 
-Adding a plot of Martini against U_ADj.
+Adding a plot of Martini against US_ADj.
 
 ```{r}
 bond.data |> ggplot(aes(x = Martinis, y = US_Adj)) +
+  geom_point() +
+  scale_color_continuous()
+```
+
+
+```{r}
+bond.data |> ggplot(aes(x = Avg_User_Rtn_Tom, y = US_Adj)) +
   geom_point() +
   scale_color_continuous()
 ```
