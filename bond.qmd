@@ -4,6 +4,9 @@ author: Jon Cockayne
 format: 
     html: default
     pdf: default
+editor: 
+  markdown: 
+    wrap: sentence
 ---
 
 In this document we will investigate the James Bond dataset from [Kaggle](https://www.kaggle.com/datasets/dreb87/jamesbond).
@@ -11,7 +14,7 @@ In [@sec-initial] we will determine which film made the most money.
 In [@sec-earnings] we will check whether movie earnings and budget are correlated, when adjusted for inflation.
 Finally in [@sec-fun] we will investigate the correlation between movie earnings and how often Bond says "Bond, James Bond".
 
-## Most Profitable Movie { #sec-initial }
+## Most Profitable Movie {#sec-initial}
 
 ```{r}
 #| message: false
@@ -23,6 +26,7 @@ bond.data
 ```
 
 Which movie made the most money?
+
 ```{r}
 by_profit <- bond.data |>
     select(Year, Movie, US_Gross) |>
@@ -33,7 +37,7 @@ by_profit
 The most profitable movie was `r by_profit$Movie[1]`, made in `r by_profit$Year[1]`.
 It made a profit of $`r sprintf("%.0f", by_profit$US_Gross[1])`.
 
-## Correlation of Earnings { #sec-earnings }
+## Correlation of Earnings {#sec-earnings}
 
 Next we investigate whether there is a significant relationship between the budget of the film and the earnings in the US.
 
@@ -62,7 +66,7 @@ bond.data |> ggplot(aes(x=Budget_Adj, y=US_Adj, color=Year)) +
 
 It still seems that the budget has been increasing with year, however there is a much less obvious correlation between this and the earnings of the movie.
 
-## Just for Fun { #sec-fun }
+## Just for Fun {#sec-fun}
 
 Lastly let's investigate whether there is a correlation between the earnings of the movie and the number of times James Bond says "Bond, James Bond".
 
@@ -74,3 +78,10 @@ bond.data |> ggplot(aes(x=BJB, y=US_Adj)) +
 
 It looks as though there is a nonlinear relationship between the variables; movies are more likely to earn more money if Bond says "Bond, James Bond" either 0 or 2 times.
 
+Adding a plot of Martini against U_ADj.
+
+```{r}
+bond.data |> ggplot(aes(x = Martinis, y = US_Adj)) +
+  geom_point() +
+  scale_color_continuous()
+```
